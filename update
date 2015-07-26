@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# vim updater
+
+# Update vim package
+echo "Checking pacman for new Vim updates"
+echo "-------------------------------------"
+if checkupdates | grep -q vim; then
+  echo "UPDATE ME"
+  sudo pacman -S vim
+fi
+
+pushd $HOME/.vim
+
+# Check if updates to vim repo on git
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse @{u})
+BASE=$(git merge-base @ @{u})
+
+echo "Checking dmix/vimfiles for new commits"
+echo "-------------------------------------"
+if [ $LOCAL = $REMOTE ]; then
+  echo "Up-to-date"
+elif [ $LOCAL = $BASE ]; then
+  echo "Update available"
+  echo "Pulling..."
+  git pull
+  ~/.vim/install
+elif [ $REMOTE = $BASE ]; then
+  echo "Error: repo needs to push"
+else
+  echo "Error: repo diverged"
+fi
+
+popd
