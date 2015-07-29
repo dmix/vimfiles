@@ -8,9 +8,12 @@
 
 ### Install script
 
-The install script installs go packages used by [vim-go](https://github.com/fatih/vim-go), runs `:PlugInstall` to installs the plugins listed in [plugins.vim](https://github.com/dmix/vimfiles/blob/master/plugins.vim), and compiles [YouCompleteMe](https://github.com/Valloric/YouCompleteMe).
+1. Pulls the latest vimfiles repo and fetches git submodules 
+2. Installs various Go dependencies (for ex: go-fmt) needed by [vim-go](https://github.com/fatih/vim-go) 
+2. Runs `:PlugInstall` to installs the plugins listed in [plugins.vim](https://github.com/dmix/vimfiles/blob/master/plugins.vim)
+3. Finally, it compiles [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
 
-### Installing (homemaker)
+### Installing (via homemaker)
 
 I use [Homemaker](https://github.com/FooSoft/homemaker) for dotfiles management. Homemaker is similar to [homesick](https://github.com/search?utf8=%E2%9C%93&q=homesick&type=Repositories&ref=searchresults) but much simpler and cleaner (and written in Go). See [homemaker.toml](https://github.com/dmix/dotfiles/blob/master/homemaker.toml) in my [dotfiles repo](https://github.com/dmix/dotfiles/).
 
@@ -33,7 +36,7 @@ When `homemaker` is run it clones the vimfiles repo then runs the [install](http
 
 *Note*: Homemaker could also do everything in the vimfiles install script but I like to keep my vim repo self-contained, which makes it more portable (for example: setting up vim on servers where I don't need my desktop dotfiles).
 
-### Installing (standalone)
+### Installing (via standalone script)
 
 ``` sh
    git clone http://github.com/dmix/vimfiles.git /usr/local/dotfiles/vimfiles`
