@@ -2,19 +2,40 @@
 
 ### Directory Structure:
 
-`./vimrc` contains vim-specific settings and loads config files
-`./plugins.vim` a list of plugins manged by [vim-plug](https://github.com/junegunn/vim-plug)
-`./config/*` settings for various 3rd-party plugins, colorscheme, and keybindings
+* `vimrc` contains vim-specific settings, it also handles loading the config files mentioned below
+* `plugins.vim` a list of plugins manged by [vim-plug](https://github.com/junegunn/vim-plug)
+* `config/*` settings for various 3rd-party plugins, colorscheme, and keybindings
+
+### Install script
+
+The install script installs go packages used by [vim-go](https://github.com/fatih/vim-go), runs `:PlugInstall` to installs the plugins listed in [plugins.vim](https://github.com/dmix/vimfiles/blob/master/plugins.vim), and compiles [YouCompleteMe](https://github.com/Valloric/YouCompleteMe).
 
 ### Installing (homemaker)
 
-Config files on my machine are managed using [Homemaker](https://github.com/FooSoft/homemaker) see `homemaker.toml` in my [dotfiles](https://github.com/dmix/dotfiles) repo. I set homemaker to clone the vimfiles repo and run the [install](https://github.com/dmix/vimfiles/blob/master/install) script (which installs go related packages and installs vim plugins).
+I use [Homemaker](https://github.com/FooSoft/homemaker) for dotfiles management. Homemaker is similar to [homesick](https://github.com/search?utf8=%E2%9C%93&q=homesick&type=Repositories&ref=searchresults) but much simpler and cleaner (and written in Go). See [homemaker.toml](https://github.com/dmix/dotfiles/blob/master/homemaker.toml) in my [dotfiles repo](https://github.com/dmix/dotfiles/).
 
-Note regarding the install script: I could technically do everything in the install script using homemaker but I like to keep my vim repo self-contained, which makes it more portable (for example: setting up vim on servers where I don't need my desktop dotfiles).
+An example homemaker task for install vimfiles:
+
+``` toml
+    [tasks.vim]
+        cmds = [
+            ["rm", "-rf", "${HM_SRC}/vimfiles"],
+            ["git", "clone", "git@github.com:dmix/vimfiles.git", "${HM_SRC}/vimfiles"],
+            ["bash", "${HM_SRC}/vimfiles/install.sh"],
+        ]
+        links = [
+            [".vimrc", "vimfiles/vimrc"],
+            [".vim", "vimfiles"],
+        ]
+```
+
+When `homemaker` is run it clones the vimfiles repo then runs the [install](https://github.com/dmix/vimfiles/blob/master/install) script.
+
+*Note*: Homemaker could also do everything in the vimfiles install script but I like to keep my vim repo self-contained, which makes it more portable (for example: setting up vim on servers where I don't need my desktop dotfiles).
 
 ### Installing (standalone)
 
-```
+``` sh
    git clone http://github.com/dmix/vimfiles.git /usr/local/dotfiles/vimfiles`
    cd /usr/local/dotfiles/vimfiles
    ./install

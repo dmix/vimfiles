@@ -51,6 +51,9 @@ bold=`tput bold`
 normal=`tput sgr0`
 end_color='\033[0;m'
 
+
+# Install go-vim dependencies
+
 if which go > /dev/null; then
   echo -e "${yellow}INSTALL${end_color} ${bold}golang${normal} dependencies..."
   gopackages="\
@@ -75,6 +78,8 @@ if which go > /dev/null; then
   echo -e "${green}DONE${end_color}    ${bold}golang${normal} dependencies"
 fi
 
+# Install vim plugins using vim-plug
+
 if [ "$1" == "--non-interactive" ]; then
   vim +'silent! PlugClean!' +qall > /dev/null
   vim +'silent! PlugUpdate' +qall > /dev/null
@@ -84,5 +89,9 @@ else
   vim +'silent! PlugUpdate' +qall
   vim +'silent! GoInstallBinaries' +qall
 fi
+
+# Install YouCompleteMe
+
+bash $DIR/plugged/YouCompleteMe/install.sh &
 
 popd
