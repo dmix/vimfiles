@@ -54,12 +54,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'elzr/vim-json',            { 'for': ['javascript','json'] }
 
   " CSS / HTML
+    Plug 'mustache/vim-mustache-handlebars'
     Plug 'rstacruz/sparkup',          { 'for': ['html', 'handlebars', 'mustache']        }
-    Plug 'nono/vim-handlebars',       { 'for': ['handlebars']        }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss','sass']       }
     Plug 'hail2u/vim-css3-syntax',    { 'for': ['css','scss','sass'] }
     Plug 'othree/html5.vim',          { 'for': ['html']              }
-    Plug 'juvenn/mustache.vim',       { 'for': ['mustache']          }
     Plug 'groenewege/vim-less',       { 'for': ['less'] }
 
   " VimL
@@ -90,6 +89,5 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'Shougo/vimproc.vim', { 'do': function('InstallVimProc') }
 
-  source $HOME/.vimrc.local.plugins
 call plug#end()
 
