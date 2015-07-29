@@ -22,8 +22,8 @@
 :augroup fixfiletypes
   autocmd BufNewFile,BufRead *.md,*.ref set filetype=markdown
   autocmd BufNewFile,BufRead *.exports*,*.profile*,*.bash*,.*zsh set filetype=sh
-  autocmd Filetype markdown,html,hbs set spell
-  autocmd BufNewFile,BufRead *.ref set nospell
+  " autocmd Filetype markdown,html set spell
+  " autocmd BufNewFile,BufRead *.ref set nospell
 :augroup END
 
 " Use Vim's syntax from :messages on *.logs

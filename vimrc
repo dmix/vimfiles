@@ -133,6 +133,7 @@ runtime! config/plugin_vimfiler.vim
 
 set nospell
 set nofoldenable
+
 " ----------------------------------------
 " Note: original project sturcture based
 " on dotfiles by Jeremy Mack (@mutewinter)
