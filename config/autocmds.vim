@@ -15,6 +15,8 @@
 :augroup tabgroup
   autocmd FileType make setlocal noexpandtab
   autocmd FileType html,hbs,javascript setlocal tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+  autocmd FileType go setlocal tabstop=4 shiftwidth=4 noexpandtab
+  autocmd FileType go autocmd BufWritePre <buffer> GoFmt
 :augroup END
 
 " Fix incorrect filetypes
