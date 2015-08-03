@@ -8,8 +8,8 @@
 
 ### Install script
 
-1. Pulls the latest vimfiles repo and fetches git submodules 
-2. Installs various Go dependencies (for ex: go-fmt) needed by [vim-go](https://github.com/fatih/vim-go) 
+1. Pulls the latest vimfiles repo and fetches git submodules
+2. Installs various Go dependencies (for ex: go-fmt) needed by [vim-go](https://github.com/fatih/vim-go)
 2. Runs `:PlugInstall` to installs the plugins listed in [plugins.vim](https://github.com/dmix/vimfiles/blob/master/plugins.vim)
 3. Finally, it compiles [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
 

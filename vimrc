@@ -27,6 +27,7 @@ set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
 " UI
 " ----------------------------------------s
+set textwidth=72
 set ruler
 set laststatus=2
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -37,13 +38,12 @@ set encoding=utf-8
 set cursorline
 set ttyfast
 set lazyredraw
-set textwidth=72
 set report=0 " Show all changes.
 set shortmess=atI " Shorten command line text and other info tokens.
 set showmode " Show the current mode.
 set nostartofline " Don't jump to the start of the line when moving around.
 if exists('+colorcolumn')
-  set colorcolumn=72 " Color the 80th column differently
+  set colorcolumn=72 " Color the 72nd column differently
 endif
 
 " Behaviors
@@ -124,6 +124,8 @@ runtime! config/plugin_autoclose.vim
 runtime! config/plugin_golang.vim
 runtime! config/plugin_json.vim
 runtime! config/plugin_lightline.vim
+runtime! config/plugin_lengthmatters.vim
+runtime! config/plugin_pandoc.vim
 runtime! config/plugin_signify.vim
 runtime! config/plugin_syntastic.vim
 runtime! config/plugin_tagbar.vim
@@ -133,8 +135,7 @@ runtime! config/plugin_vimfiler.vim
 
 set nospell
 set nofoldenable
-
-" ----------------------------------------
+ ----------------------------------------
 " Note: original project sturcture based
 " on dotfiles by Jeremy Mack (@mutewinter)
 " ----------------------------------------

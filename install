@@ -91,7 +91,6 @@ else
 fi
 
 # Install YouCompleteMe
-
-bash $DIR/plugged/YouCompleteMe/install.sh &
+bash $DIR/plugged/YouCompleteMe/install.sh --clang-completer
 
 popd

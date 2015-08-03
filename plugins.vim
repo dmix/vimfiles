@@ -8,11 +8,13 @@ call plug#begin('~/.vim/plugged')
 
 " Colorscheme
   Plug 'nanotech/jellybeans.vim'
+  Plug 'whatyouhide/vim-gotham'
 
 " UI Additions
   Plug 'itchyny/lightline.vim'
   Plug 'wolf-dog/lightline-nighted.vim'
   Plug 'scrooloose/syntastic'
+  Plug 'whatyouhide/vim-lengthmatters'
 
 " Note
   Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -45,13 +47,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'cespare/vim-toml'
 
   " JavaScript
-    Plug 'pangloss/vim-javascript',  { 'for': ['javascript']        }
-    Plug 'moll/vim-node',            { 'for': ['javascript']        }
-    Plug 'jelera/vim-javascript-syntax',  { 'for': ['javascript']   }
-    Plug 'mxw/vim-jsx',              { 'for': ['javascript']        }
-    Plug 'maksimr/vim-jsbeautify',   { 'for': ['javascript']        }
-    Plug 'kchmck/vim-coffee-script', { 'for': ['coffee']            }
-    Plug 'elzr/vim-json',            { 'for': ['javascript','json'] }
+    Plug 'pangloss/vim-javascript',      { 'for': ['javascript'] }
+    Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
+    Plug 'moll/vim-node',                { 'for': ['javascript'] }
+    Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript'] }
+    Plug 'mxw/vim-jsx',                  { 'for': ['javascript'] }
+    Plug 'maksimr/vim-jsbeautify',       { 'for': ['javascript'] }
+    Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
+    Plug 'kchmck/vim-coffee-script',     { 'for': ['coffee']     }
 
   " CSS / HTML
     Plug 'mustache/vim-mustache-handlebars'
