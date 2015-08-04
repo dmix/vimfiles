@@ -40,8 +40,8 @@
 " ------------------------------------------
 :augroup fixfiletypes
   autocmd BufNewFile,BufRead *.md,*.ref set filetype=markdown
-  autocmd BufNewFile,BufRead *.exports*,*.profile*,*.bash*,.*zsh set filetype=sh
   autocmd BufNewFile,BufRead jshint*,.jshint* set filetype=javascript
+  autocmd BufNewFile,BufRead *ignore,*.exports*,*.profile*,*.bash*,.*zsh set filetype=conf
   " autocmd Filetype markdown,html set spell
   " autocmd BufNewFile,BufRead *.ref set nospell
 :augroup END
