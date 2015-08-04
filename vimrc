@@ -52,7 +52,6 @@ set hidden             " Change buffer - without saving
 set autowriteall       " Writes on make/shell commands
 set iskeyword+=$,@,-     " Add extra characters that are valid parts of variables
 set tags=./tags;/,tags;/
-set nospell
 set paste
 
 " Folding
@@ -102,7 +101,6 @@ set scrolloff=3 " start scrolling three lines before horizontal border of window
 set title " Show the filename in the window titlebar.
 set diffopt=filler,vertical "Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set ai " autoindent
 set guioptions=acg
 
@@ -133,9 +131,12 @@ runtime! config/plugin_unite.vim
 runtime! config/plugin_undotree.vim
 runtime! config/plugin_vimfiler.vim
 
+set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nospell
 set nofoldenable
- ----------------------------------------
+set nohlsearch
+
+" ----------------------------------------
 " Note: original project sturcture based
 " on dotfiles by Jeremy Mack (@mutewinter)
 " ----------------------------------------

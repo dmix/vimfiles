@@ -1,10 +1,17 @@
 call plug#begin('~/.vim/plugged')
 
+" Experimental / new plugins that I might use
+  Plug 'Shougo/vimshell.vim'
+  Plug 'Shougo/neomru.vim'
+  Plug 'Valloric/YouCompleteMe'
+  Plug 'majutsushi/tagbar'
+  Plug 'amix/vim-zenroom'
+  Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
+  Plug 'maksimr/vim-jsbeautify',       { 'for': ['javascript'] }
+
 " Navigation
   Plug 'Shougo/unite.vim'
   Plug 'Shougo/vimfiler.vim'
-  Plug 'Shougo/neomru.vim'
-  Plug 'majutsushi/tagbar'
 
 " Colorscheme
   Plug 'nanotech/jellybeans.vim'
@@ -22,11 +29,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-pandoc/vim-pandoc'
 
 " Automatic Helpers
-  Plug 'Valloric/YouCompleteMe'
   Plug 'google/vim-maktaba'
   Plug 'google/vim-codefmt'
   Plug 'google/vim-glaive'
-
   Plug 'tomtom/tcomment_vim'
 
 " Language specific
@@ -48,13 +53,8 @@ call plug#begin('~/.vim/plugged')
 
   " JavaScript
     Plug 'pangloss/vim-javascript',      { 'for': ['javascript'] }
-    Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
     Plug 'moll/vim-node',                { 'for': ['javascript'] }
-    Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript'] }
-    Plug 'mxw/vim-jsx',                  { 'for': ['javascript'] }
-    Plug 'maksimr/vim-jsbeautify',       { 'for': ['javascript'] }
     Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
-    Plug 'kchmck/vim-coffee-script',     { 'for': ['coffee']     }
 
   " CSS / HTML
     Plug 'mustache/vim-mustache-handlebars'
@@ -65,28 +65,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'groenewege/vim-less',       { 'for': ['less'] }
 
   " VimL
-    Plug 'ynkdir/vim-vimlparser', { 'for': 'vim' }
-    Plug 'syngan/vim-vimlint',    { 'for': 'vim' }
+    " Plug 'ynkdir/vim-vimlparser', { 'for': 'vim' }
+    " Plug 'syngan/vim-vimlint',    { 'for': 'vim' }
 
   " Markdown
     Plug '/plasticboy/vim-markdown', { 'for': 'markdown' }
 
   function! InstallVimProc(info)
     if a:info.status == 'installed' || a:info.force
-      if has("unix")
-        let s:uname = system("uname -s")
-        if s:uname =~ "Darwin"
-          silent !make -f make_mac.mak
-        elseif s:uname =~ "Linux"
-          silent !make
-        else
-          silent !gmake
-        endif
-      elseif has("win32unix")
-        silent !make -f make_cygwin.mak
-      elseif has('win32')
-        silent !tools\update-dll-mingw
-      endif
+      silent !make
     endif
   endfunction
 

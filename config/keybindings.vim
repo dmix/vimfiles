@@ -20,8 +20,8 @@ map vrp :e ~/.vim/config/plugin
 map vrk :e ~/.vim/config/plugins/unite.vim
 
 " Common commands
-map <C-n> :VimFilerExplorer<CR>
-"map <C-N> :VimFilerBufferDir<CR>
+" map <C-n> :VimFiler<CR>
+" map <C-N> :VimFilerBufferDir<CR>
 noremap <leader>2 :w !sudo tee %<CR>
 inoremap jj <Esc>
 nnoremap j gj
@@ -57,13 +57,6 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " ---------------
 " Leader Commands
 " ---------------
-
-"Move back and forth through previous and next buffers
-nnoremap <Leader>p :buffers<CR>:buffer<Space>
-nnoremap <leader>n :bn<cr>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>m :bprev<CR>
-nnoremap <Leader>k :BufOnly<CR>
 
 " Toggle spelling mode with <space>-s
 nmap <silent> <leader>ss :set spell!<CR>

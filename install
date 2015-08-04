@@ -90,7 +90,13 @@ else
   vim +'silent! GoInstallBinaries' +qall
 fi
 
+
 # Install YouCompleteMe
 bash $DIR/plugged/YouCompleteMe/install.sh --clang-completer
+
+# Install Tern
+cd $DIR/plugged/tern_for_vim
+npm install
+cd $DIR
 
 popd
