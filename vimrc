@@ -1,6 +1,6 @@
 " --------------------------------------------------------
 "
-" Vim
+213443" Vim
 "
 " Author:  @dmix
 " Plugins: Managed using Plug.vim in config/plugins.vim
@@ -8,6 +8,81 @@
 " Github:  https://github.com/dmix/dotfiles-vim/
 "
 " ---------------------------------------------------------
+"
+call plug#begin('~/.vim/plugged')
+
+  " Experimental / new plugins that I might use
+    Plug 'Shougo/vimshell.vim'
+    Plug 'Shougo/neomru.vim'
+    Plug 'Valloric/YouCompleteMe'
+    Plug 'majutsushi/tagbar'
+    Plug 'amix/vim-zenroom'
+    Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
+    Plug 'maksimr/vim-jsbeautify',       { 'for': ['javascript'] }
+
+  " Colorscheme
+    Plug 'dmix/vim-gotham'
+
+  " Navigation
+    Plug 'Shougo/unite.vim'
+    Plug 'Shougo/vimfiler.vim'
+    Plug 'Townk/vim-autoclose.vim'
+
+  " UI Additions
+    Plug 'itchyny/lightline.vim'
+    Plug 'wolf-dog/lightline-nighted.vim'
+    Plug 'whatyouhide/vim-lengthmatters'
+    Plug 'dzeban/vim-log-syntax'
+
+  " Notes
+    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'vim-pandoc/vim-pandoc-after'
+    Plug 'vim-pandoc/vim-pandoc'
+
+  " Automatic Helpers
+    Plug 'scrooloose/syntastic'
+    Plug 'google/vim-maktaba'
+    Plug 'google/vim-codefmt'
+    Plug 'google/vim-glaive'
+    Plug 'tomtom/tcomment_vim'
+
+  " Language specific
+    " Android
+      Plug 'naseer/logcat'
+
+    " Go
+      Plug 'fatih/vim-go',                 { 'for': ['go'] }
+      Plug 'garyburd/go-explorer',         { 'for': ['go'] }
+
+    " Rust
+      Plug 'rust-lang/rust.vim',           { 'for': ['rust'] }
+      Plug 'cespare/vim-toml',             { 'for': ['toml'] }
+
+    " JavaScript
+      Plug 'pangloss/vim-javascript',      { 'for': ['javascript'] }
+      Plug 'moll/vim-node',                { 'for': ['javascript'] }
+      Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
+
+    " CSS / HTML
+      Plug 'mustache/vim-mustache-handlebars', { 'for': ['html', 'handlebars', 'mustache'] }
+      Plug 'cakebaker/scss-syntax.vim',    { 'for': ['scss','sass']       }
+      Plug 'hail2u/vim-css3-syntax',       { 'for': ['css','scss','sass'] }
+      Plug 'othree/html5.vim',             { 'for': ['html']              }
+      Plug 'groenewege/vim-less',          { 'for': ['less'] }
+
+    " Markdown
+      Plug '/plasticboy/vim-markdown',     { 'for': 'markdown' }
+
+    function! InstallVimProc(info)
+      if a:info.status == 'installed' || a:info.force
+        silent !make
+      endif
+    endfunction
+
+    Plug 'Shougo/vimproc.vim', { 'do': function('InstallVimProc') }
+
+call plug#end()
+
 
 " Config
 " ----------------------------------------
@@ -66,6 +141,8 @@ set tabstop=2 " size of a hard tabstop
 set shiftwidth=2 " size of indent
 set expandtab " Expand tabs to spaces.
 set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces.
+set autoindent
+filetype plugin indent on
 
 " Searching
 " ----------------------------------------
@@ -97,44 +174,36 @@ set mouse=a  " Mouse in all modes
 " Experimental
 " ----------------------------------------
 set backspace=start,indent,eol
-set scrolloff=3 " start scrolling three lines before horizontal border of window.
+set scrolloff=5 " start cursor three lines below
 set title " Show the filename in the window titlebar.
-set diffopt=filler,vertical "Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set ai " autoindent
-set guioptions=acg
+" set diffopt=filler,vertical "Add vertical spaces to keep right and left aligned
+" set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+" set guioptions=acg
 
 " Configs
 " ----------------------------------------
-runtime! plugins.vim
-runtime! config/keybindings.vim
-runtime! config/autocmds.vim
-runtime! config/colors.vim
 
 try
   call glaive#Install()
 catch
 endtry
 
-" Plugins
-" ----------------------------------------
-runtime! config/plugin_autoclose.vim
-runtime! config/plugin_golang.vim
-runtime! config/plugin_json.vim
-runtime! config/plugin_lightline.vim
-runtime! config/plugin_lengthmatters.vim
-runtime! config/plugin_pandoc.vim
-runtime! config/plugin_signify.vim
-runtime! config/plugin_syntastic.vim
-runtime! config/plugin_tagbar.vim
-runtime! config/plugin_unite.vim
-runtime! config/plugin_undotree.vim
-runtime! config/plugin_vimfiler.vim
+runtime! keybindings.vim
+runtime! plugins.vim
 
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
+set noshowmode
 set nospell
 set nofoldenable
 set nohlsearch
+
+set diffopt=filler,vertical "Add vertical spaces to keep right and left aligned
+set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+
+" Color scheme
+" ------------------------------------------
+colorscheme gotham
+set t_Co=16
+syntax enable
 
 " ----------------------------------------
 " Note: original project sturcture based
