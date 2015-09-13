@@ -4,7 +4,7 @@
 "
 " Author:  @dmix
 " Plugins: Managed using Plug.vim in config/plugins.vim
-" Usecase: Go, Front-end (JS/HTML/SCSS), & PanDoc notes
+" Usecase: Go, Front-end (JS/CSS) & markdown notes
 " Github:  https://github.com/dmix/dotfiles-vim/
 "
 " ---------------------------------------------------------
@@ -12,32 +12,51 @@
 call plug#begin('~/.vim/plugged')
 
   " Experimental / new plugins that I might use
-    Plug 'Shougo/vimshell.vim'
-    Plug 'Shougo/neomru.vim'
+    Plug 'alx741/vinfo'
+    Plug 'junegunn/goyo.vim'
+    Plug 'facebook/vim-flow'
+    Plug 'gorodinskiy/vim-coloresque'
+    Plug 'maksimr/vim-jsbeautify'
+    Plug 'mephux/vim-jsfmt',             { 'for': ['javascript'] }
     Plug 'Valloric/YouCompleteMe'
-    Plug 'majutsushi/tagbar'
-    Plug 'amix/vim-zenroom'
+    Plug 'amix/vim-zenroom2'
     Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
-    Plug 'maksimr/vim-jsbeautify',       { 'for': ['javascript'] }
+    Plug 'Shougo/vimfiler.vim' " File navigation (ala :dir)
+    " Plug 'Mizuchi/vim-ranger' " File explorer using ranger
+    " Plug 'whatyouhide/vim-lengthmatters'
 
   " Colorscheme
-    Plug 'dmix/vim-gotham'
+    Plug 'cocopon/lightline-hybrid.vim'
+    Plug 'kristijanhusak/vim-hybrid-material'
+    Plug 'w0ng/vim-hybrid'
 
   " Navigation
+    Plug 'majutsushi/tagbar' " Lists ctags in right sidebar
     Plug 'Shougo/unite.vim'
-    Plug 'Shougo/vimfiler.vim'
-    Plug 'Townk/vim-autoclose.vim'
+    Plug 'Shougo/neomru.vim'
+    Plug 'gabesoft/vim-ags' " Ag search
+    Plug 'jszakmeister/markdown2ctags' " markdown for tagbar
+
+  " Tmux
+    " Plug 'christoomey/vim-tmux-navigator'
+    " Plug 'benmills/vimux'
+
+  " Project management
+    Plug 'mbbill/undotree'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'danro/rename.vim'
 
   " UI Additions
     Plug 'itchyny/lightline.vim'
     Plug 'wolf-dog/lightline-nighted.vim'
-    Plug 'whatyouhide/vim-lengthmatters'
     Plug 'dzeban/vim-log-syntax'
+    " Plug 'Townk/vim-autoclose.vim'
+    Plug 'FooSoft/vim-argwrap'
 
   " Notes
-    Plug 'vim-pandoc/vim-pandoc-syntax'
-    Plug 'vim-pandoc/vim-pandoc-after'
-    Plug 'vim-pandoc/vim-pandoc'
+    " Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'vim-pandoc/vim-pandoc-after'
+    " Plug 'vim-pandoc/vim-pandoc'
 
   " Automatic Helpers
     Plug 'scrooloose/syntastic'
@@ -50,6 +69,14 @@ call plug#begin('~/.vim/plugged')
     " Android
       Plug 'naseer/logcat'
 
+    " Clojure
+
+      Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] },
+      Plug 'guns/vim-sexp',                { 'for': ['clojure'] },
+      Plug 'guns/vim-clojure-highlight',   { 'for': ['clojure'] }
+      Plug 'tpope/vim-fireplace',          { 'for': ['clojure'] }
+      " look into: guns/vim-clojure-static,
+
     " Go
       Plug 'fatih/vim-go',                 { 'for': ['go'] }
       Plug 'garyburd/go-explorer',         { 'for': ['go'] }
@@ -59,9 +86,9 @@ call plug#begin('~/.vim/plugged')
       Plug 'cespare/vim-toml',             { 'for': ['toml'] }
 
     " JavaScript
-      Plug 'pangloss/vim-javascript',      { 'for': ['javascript'] }
-      Plug 'moll/vim-node',                { 'for': ['javascript'] }
+      Plug 'pangloss/vim-javascript'
       Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
+      Plug 'moll/vim-node'
 
     " CSS / HTML
       Plug 'mustache/vim-mustache-handlebars', { 'for': ['html', 'handlebars', 'mustache'] }
@@ -71,7 +98,8 @@ call plug#begin('~/.vim/plugged')
       Plug 'groenewege/vim-less',          { 'for': ['less'] }
 
     " Markdown
-      Plug '/plasticboy/vim-markdown',     { 'for': 'markdown' }
+      Plug 'godlygeek/tabular'
+      Plug 'plasticboy/vim-markdown'
 
     function! InstallVimProc(info)
       if a:info.status == 'installed' || a:info.force
@@ -102,7 +130,7 @@ set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
 " UI
 " ----------------------------------------s
-set textwidth=72
+set textwidth=78
 set ruler
 set laststatus=2
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -118,7 +146,7 @@ set shortmess=atI " Shorten command line text and other info tokens.
 set showmode " Show the current mode.
 set nostartofline " Don't jump to the start of the line when moving around.
 if exists('+colorcolumn')
-  set colorcolumn=72 " Color the 72nd column differently
+  set colorcolumn=80 " highlight three columns after 'textwidth'
 endif
 
 " Behaviors
@@ -201,8 +229,10 @@ set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 
 " Color scheme
 " ------------------------------------------
-colorscheme gotham
-set t_Co=16
+let g:enable_bold_font = 1
+set t_Co=256
+colorscheme hybrid_reverse
+let g:hybrid_use_Xresources = 1
 syntax enable
 
 " ----------------------------------------

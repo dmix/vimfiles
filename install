@@ -90,6 +90,10 @@ else
   vim +'silent! GoInstallBinaries' +qall
 fi
 
+# Tagbar dependencies
+yaourt -S universal-ctags-git
+npm install -g git+https://github.com/ramitos/jsctags.git
+go get -u github.com/jstemmer/gotags
 
 # Install YouCompleteMe
 bash $DIR/plugged/YouCompleteMe/install.sh --clang-completer

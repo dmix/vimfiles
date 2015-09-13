@@ -6,19 +6,40 @@ let g:mapleader="\<Space>"
 
 " Navigation
 " ---------------------------------------------------------------------
-nnoremap <C-N> :VimFiler<CR>
-nnoremap <C-n> :VimFiler<CR>
+nnoremap <C-N> :VimFilerBufferDir<CR>
+nnoremap <C-n> :VimFilerExplorer<CR>
 " nnoremap <C-n> :Unite -vertical file_rec<CR>
-nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+nnoremap <C-p> :Unite -buffer-name=files -start-insert file_rec<cr>
 nnoremap <leader>b :Unite buffer<CR>
 nnoremap <leader>B :Unite bookmarks<CR>
-nnoremap <leader>p :Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
+nnoremap <leader>p :Unite -vertical -buffer-name=mru -start-insert file_mru<cr>
 nnoremap <leader>/ :Unite -no-split grep:.<cr>
 nnoremap <leader>y :Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap <leader>e :Unite -no-split -buffer-name=buffer  buffer<cr>
 nnoremap <leader>d <Esc>:bd<cr>
 nnoremap <leader>n <Esc>:bn<cr>
 
+"Move back and forth through previous and next buffers
+" nnoremap <Leader>p :buffers<CR>:buffer<Space>
+nnoremap <Leader>b :bp<CR>
+nnoremap <leader>m :bn<cr>
+" nnoremap <Leader>m :bprev<CR>
+nnoremap <Leader>k :BufOnly<CR>
+
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'winheight': 16,
+\   'direction': 'dynamictop',
+\ })
+
+" See https://github.com/Shougo/unite.vim/issues/236#issuecomment-51983184
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+let g:unite_source_rec_unit = 250
+let g:unite_source_rec_max_cache_files = 5000
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup',
+		\  '--hidden', '-g', '']
 " Leader
 " ---------------------------------------------------------------------
 

@@ -21,10 +21,12 @@
 " Filetype based commands or buffwrites
 " ------------------------------------------
 :augroup filecommandsgroup
+  "autocmd FileType * nested :call tagbar#autoopen(0) " open tagbar automatically if filetype supported
   autocmd FileType go noremap <buffer> <c-f> :GoFmt<cr>
-  autocmd FileType javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
+  autocmd filetype javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
+  autocmd FileType javascript noremap <buffer> <leader><f> :call JSFmt<cr>
   autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-  autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+  autocmd FileType css,scss,sass noremap <buffer> <c-f> :call CSSBeautify()<cr>
 :augroup END
 
 
@@ -40,55 +42,81 @@
 " Fix incorrect filetypes
 " ------------------------------------------
 :augroup fixfiletypes
-  autocmd BufNewFile,BufRead *.md,*.ref set filetype=markdown
+  autocmd BufNewFile,BufRead *.md,*.ref,README set filetype=markdown
   autocmd BufNewFile,BufRead jshint*,.jshint* set filetype=javascript
   autocmd BufNewFile,BufRead *ignore,*.exports*,*.profile*,*.bash*,.*zsh set filetype=conf
+  autocmd BufRead,BufNewFile *.json set filetype=json
+  kj
   " autocmd Filetype markdown,html set spell
   " autocmd BufNewFile,BufRead *.ref set nospell
 :augroup END
+
 
 " Use Vim's syntax from :messages on *.logs
 " ------------------------------------------
 autocmd BufNewFile,BufReadPost *messages* :set filetype=messages
 
+" Clojure
+" ------------------------------------------
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+" let g:rbpt_max = 16
+" let g:rbpt_loadcmd_toggle = 0
+" autocmd FileType clojure RainbowParenthesesToggle
 
-" ==> plugin_unite.vim <==
-" Unite
-" ---------------------------------------------------------------------
+nmap <leader>r :RainbowParenthesesToggle<CR>
 
-call unite#custom#profile('default', 'context', {
-\   'start_insert': 1,
-\   'winheight': 10,
-\   'direction': 'botright',
-\ })
-
-" See https://github.com/Shougo/unite.vim/issues/236#issuecomment-51983184
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-let g:unite_source_rec_unit = 500
-let g:unite_source_rec_max_cache_files = 99999
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_rec_async_command= 'ag --nocolor --nogroup --hidden -g ""'
-
-" if executable('pt')
-"   let g:unite_source_rec_async_command= 'pt'
-"   let g:unite_source_grep_command = 'pt'
-"   let g:unite_source_grep_default_opts = ''
-"   let g:unite_source_grep_recursive_opt = ''
-" endif
+" " Tmux
+" " ---------------------------------------------------------------------
+" let g:tmux_navigator_no_mappings = 1
 "
+" nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
+" nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+" nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+" nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
-" ==> plugin_autoclose.vim <==
+" Vimux
 " ---------------------------------------------------------------------
+map <Leader>rr :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+map <Leader>mm :call VimuxRunCommand("clear; make")<CR>
 
-" vim mode-switch lag fix
-if ! has("gui_running")
-  set ttimeoutlen=10
-  augroup FastEscape autocmd!
-    au InsertEnter * set timeoutlen=50
-    au InsertLeave * set timeoutlen=1000
-  augroup END
-endif
+function! NpmReadme()
+  call VimuxRunCommand("readme " . @v)
+  call VimuxSendKeys("Enter")
+endfunction
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <Leader>rm "vy :call VimuxRunCommand("readme " . @v)<CR>
+
+
+" " ==> plugin_autoclose.vim <==
+" " ---------------------------------------------------------------------
+"
+" " vim mode-switch lag fix
+" if ! has("gui_running")
+"   set ttimeoutlen=10
+"   augroup FastEscape autocmd!
+"     au InsertEnter * set timeoutlen=50
+"     au InsertLeave * set timeoutlen=1000
+"   augroup END
+" endif
 
 
 " ==> plugin_golang.vim <==
@@ -115,15 +143,15 @@ let g:vim_json_syntax_conceal = 0
 "==> plugin_lengthmatters.vim <==
 " ---------------------------------------------------------------------
 
-let g:lengthmatters_on_by_default=1
-let g:lengthmatters_start_at_colum=72
+let g:lengthmatters_on_by_default = 0
+let g:lengthmatters_use_textwidth = 0
 
 
 " ==> plugin_lightline.vim <==
 " ---------------------------------------------------------------------
 
 let g:lightline = {
-  \ 'colorscheme': 'gotham',
+  \ 'colorscheme': 'hybrid',
   \ }
 
 
@@ -156,8 +184,41 @@ let g:syntastic_disabled_filetypes = ['java']
 " ==> plugin_tagbar.vim <==
 " ---------------------------------------------------------------------
 
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '~/.vim/plugged/markdown2ctags/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
+
+let g:tagbar_type_make = {
+            \ 'kinds':[
+                \ 'm:macros',
+                \ 't:targets'
+            \ ]
+\}
+
 let g:tagbar_type_css = {
-            \ 'ctagstype' : 'Css',
+    \ 'ctagstype' : 'Css',
     \ 'kinds'     : [
         \ 'c:classes',
         \ 's:selectors',
@@ -176,7 +237,7 @@ let g:tagbar_type_ruby = {
     \ ]
     \ }
 
-nmap <F8> :TagbarToggle<CR>
+nmap <leader>t :TagbarToggle<CR>
 
 
 " ==> plugin_undotree.vim <==
@@ -200,4 +261,17 @@ let g:vimfiler_safe_mode_by_default = 0
   " Plug 'tpope/vim-bundler',          { 'for': ['ruby', 'rake'] }
   " Plug 'rstacruz/sparkup',           { 'for': ['html', 'handlebars', 'mustache'] }
   " Plug 'whatyouhide/vim-gotham'
+
+" jsmft
+" ---------------------------------------------------------------------
+let g:js_fmt_autosave = 0
+let g:js_fmt_fail_silently = 1
+
+" vim-markdown
+" ---------------------------------------------------------------------
+let g:vim_markdown_frontmatter=1
+
+" vim-flow
+" ---------------------------------------------------------------------
+let g:flow#enable = 0
 
