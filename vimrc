@@ -26,7 +26,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'edkolev/tmuxline.vim'
     Plug 'gorodinskiy/vim-coloresque'
 
+  " Auto-complete
+    Plug 'Shougo/neocomplete'
+		Plug 'cohama/lexima.vim'
+    Plug 'Shougo/neosnippet'
+    Plug 'Shougo/neosnippet-snippets'
+
   " Navigation
+    Plug 'Shougo/vimshell.vim'
     Plug 'Shougo/vimfiler.vim'
     Plug 'Shougo/unite.vim'
     Plug 'Shougo/neomru.vim'
@@ -40,12 +47,7 @@ call plug#begin('~/.vim/plugged')
 
   " Project management
     Plug 'mbbill/undotree'
-    Plug 'editorconfig/editorconfig-vim'
     Plug 'danro/rename.vim'
-
-  " UI Additions
-		Plug 'cohama/lexima.vim'
-    " Plug 'FooSoft/vim-argwrap'
 
   " Writing + Notes
     Plug 'junegunn/goyo.vim'
@@ -61,9 +63,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'google/vim-glaive'
     Plug 'tomtom/tcomment_vim'
 
-  " Language specific
+  " Language/Platform specific
     " Android
       Plug 'naseer/logcat'
+
+    " Docker
+      Plug 'ekalinin/Dockerfile.vim'
 
     " Go
       Plug 'fatih/vim-go',                 { 'for': ['go'] }
@@ -71,7 +76,7 @@ call plug#begin('~/.vim/plugged')
 
     " Rust
       Plug 'cespare/vim-toml',             { 'for': ['toml'] }
-      " Plug 'rust-lang/rust.vim',           { 'for': ['rust'] }
+      Plug 'rust-lang/rust.vim',           { 'for': ['rust'] }
 
     " Clojure
       " Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] },
@@ -82,10 +87,12 @@ call plug#begin('~/.vim/plugged')
 
     " JavaScript
       Plug 'pangloss/vim-javascript'
-    	" Plug 'maksimr/vim-jsbeautify'
-    	" Plug 'mephux/vim-jsfmt',             { 'for': ['javascript'] }
       Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
       Plug 'moll/vim-node'
+      Plug 'mklabs/vim-backbone'
+      Plug 'isRuslan/vim-es6'
+    	" Plug 'maksimr/vim-jsbeautify'
+    	" Plug 'mephux/vim-jsfmt',             { 'for': ['javascript'] }
 
     " CSS / HTML
       Plug 'mustache/vim-mustache-handlebars', { 'for': ['html', 'handlebars', 'mustache'] }
@@ -133,9 +140,18 @@ set noswapfile
 set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
+" Undo
+" ----------------------------------------
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim-tmp/undo " where to save undo histories
+set undolevels=100         " How many undos
+set undoreload=1000        " number of lines to save for undo
 
 " UI
 " ----------------------------------------s
+set splitbelow        " new hoz splits go below
+set splitright        " new vert splits go right
+autocmd VimResized * :wincmd = " let terminal resize scale the internal windows
 set textwidth=78
 set nu             " line numbers on
 set cmdheight=1    " make the command area two lines high
@@ -153,7 +169,7 @@ if exists('+colorcolumn')
 endif
 
 if has('statusline')
-	set laststatus=2
+	set laststatus=1
 	" Broken down into easily includeable segments
 	set statusline=%<%f\    " Filename
 	set statusline+=%w%h%m%r " Options
