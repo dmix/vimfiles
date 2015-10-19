@@ -18,6 +18,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'itchyny/calendar.vim'
 		Plug 'cohama/agit.vim' " git log viewer
 		Plug 'jceb/vim-hier' " highlight quickfix errors
+    Plug 'tpope/vim-obsession'
+    Plug 'tpope/vim-fugitive'
 
   " Color scheme
     Plug 'w0ng/vim-hybrid'
@@ -25,6 +27,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'rafi/vim-tinyline'
     Plug 'edkolev/tmuxline.vim'
     Plug 'gorodinskiy/vim-coloresque'
+
 
   " Auto-complete
     Plug 'Shougo/neocomplete'
@@ -42,12 +45,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'jszakmeister/markdown2ctags' " markdown for tagbar
 
   " Tmux
+    Plug 'tmux-plugins/vim-tmux'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'benmills/vimux'
-
-  " Project management
-    Plug 'mbbill/undotree'
-    Plug 'danro/rename.vim'
 
   " Writing + Notes
     Plug 'junegunn/goyo.vim'
@@ -173,6 +173,7 @@ if has('statusline')
 	" Broken down into easily includeable segments
 	set statusline=%<%f\    " Filename
 	set statusline+=%w%h%m%r " Options
+	set statusline+=%{ObsessionStatus()} "  Git Hotness
 	set statusline+=%{fugitive#statusline()} "  Git Hotness
 	set statusline+=\ [%{&ff}/%Y]            " filetype
 	set statusline+=\ [%{getcwd()}]          " current dir
