@@ -22,7 +22,7 @@
 " ------------------------------------------
 :augroup filecommandsgroup
   autocmd! bufwritepost $MYVIMRC source $MYVIMRC " source vimrc
-  "autocmd FileType * nested :call tagbar#autoopen(0) " open tagbar automatically if filetype supported
+  " autocmd FileType * nested :call tagbar#autoopen(0) " open tagbar automatically if filetype supported
   autocmd FileType go noremap <buffer> <c-f> :GoFmt<cr>
   autocmd filetype javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
   autocmd FileType javascript noremap <buffer> <leader><f> :call JSFmt<cr>
@@ -37,7 +37,7 @@
   autocmd FileType make setlocal noexpandtab
   autocmd FileType html,hbs,javascript setlocal tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
   autocmd FileType go setlocal tabstop=4 shiftwidth=4 noexpandtab
-  " autocmd FileType go autocmd BufWritePre <buffer> GoFmt
+  autocmd FileType go autocmd BufWritePre <buffer> GoFmt
 :augroup END
 
 " Fix incorrect filetypes
@@ -282,7 +282,6 @@ let g:syntastic_vim_checkers = ['vint']
 let g:syntastic_perl_lib_path = [ '/usr/local/lib/perl5/auto' ]
 
 
-
 " ==> plugin_tagbar.vim <==
 " ---------------------------------------------------------------------
 
@@ -372,13 +371,6 @@ let g:js_fmt_fail_silently = 1
 " vim-markdown
 " ---------------------------------------------------------------------
 let g:cim_markdown_frontmatter=1
-
-" vim-flow
-" ---------------------------------------------------------------------
-let g:flow#enable = 0
-
-"let g:syntastic_text_checkers = ['language_check']
-let g:syntastic_text_language_check_args = '--language=en-US'
 
 " gitgutter
 " ---------------------------------------------------------------------
@@ -498,3 +490,46 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+" vim-compiler-go
+" ---------------------------------------------------------------------
+let g:golang_goroot = "/home/control/go"
+
+" vim-go
+" ---------------------------------------------------------------------
+let g:go_disable_autoinstall = 0
+
+" Highlight
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }

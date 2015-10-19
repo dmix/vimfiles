@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'jceb/vim-hier' " highlight quickfix errors
     Plug 'tpope/vim-obsession'
     Plug 'tpope/vim-fugitive'
+    Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
   " Color scheme
     Plug 'w0ng/vim-hybrid'
@@ -27,7 +28,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'rafi/vim-tinyline'
     Plug 'edkolev/tmuxline.vim'
     Plug 'gorodinskiy/vim-coloresque'
-
 
   " Auto-complete
     Plug 'Shougo/neocomplete'
@@ -86,6 +86,8 @@ call plug#begin('~/.vim/plugged')
       " look into: guns/vim-clojure-static,
 
     " JavaScript
+    Plug 'mephux/vim-jsfmt',             { 'for': ['javascript'] }
+    Plug 'marijnh/tern_for_vim',         { 'for': ['javascript'] }
       Plug 'pangloss/vim-javascript'
       Plug 'elzr/vim-json',                { 'for': ['javascript', 'json'] }
       Plug 'moll/vim-node'
